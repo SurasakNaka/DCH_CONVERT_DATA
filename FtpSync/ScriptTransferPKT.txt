@@ -1,0 +1,9 @@
+option batch abort
+option confirm off
+open ftp://cmgops:7<xIQ6@219.92.228.46:5020/
+cd CMG/INBOUND
+lcd C:\OWH_ITF\INBOUND
+get -delete -nopreservetime *.*
+close
+exit
+

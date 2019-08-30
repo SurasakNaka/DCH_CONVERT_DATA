@@ -1,0 +1,4 @@
+PKT FTP
+IP 219.92.228.46 port 5020
+login cmgops
+pass 7<xIQ6

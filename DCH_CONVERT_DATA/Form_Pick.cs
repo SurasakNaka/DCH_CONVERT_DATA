@@ -455,7 +455,7 @@ namespace DCH_CONVERT_DATA
                         }
                         else
                         {
-                            result.Append("<ENTDTE>" + dtResult.Rows[0]["REQUESTED_DATE"].ToString() + "</ENTDTE>");
+                            result.Append("<ENTDTE>" + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(4, 4) + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(2, 2) + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(0, 2) + "</ENTDTE>");
 
                         }
                         //result.AppendLine();
@@ -492,7 +492,7 @@ namespace DCH_CONVERT_DATA
                         }
                         else
                         {
-                            result.Append("<CPODTE>" + dtResult.Rows[0]["ORDER_DATE"].ToString() + "</CPODTE>");
+                            result.Append("<CPODTE>" + dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(4,4)+dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(2,2)+dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(0,2) + "</CPODTE>");
 
                         }
                         //result.AppendLine();
@@ -762,7 +762,7 @@ namespace DCH_CONVERT_DATA
                         {
                             #region Create File
                             string SHIP_TO_X = SHIP_TO_JDE_ADDRESS.PadLeft(8, '0');
-                            string FileName = PRE_Naming +"_" + searchstring.PadLeft(8, '0') + "_" + DateTime.Now.ToString("yyyyMMddhhmmss", (new System.Globalization.CultureInfo("en-US")));
+                            string FileName = PRE_Naming + "_" + searchstring.PadLeft(8, '0') + "_" + DateTime.Now.ToString("yyMMddhhmmss", (new System.Globalization.CultureInfo("en-US"))) + "00001";
 
                             StreamWriter objWriter = new StreamWriter(GetPATHXML + "\\" + FileName + ".xml", false);
                             objWriter.Write(result.ToString());

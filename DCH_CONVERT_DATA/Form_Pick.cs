@@ -697,7 +697,7 @@ namespace DCH_CONVERT_DATA
                             }
                             else
                             {
-                                result.Append("<ORDQTY>" + dtResult.Rows[j]["QUANTITY"].ToString() + "</ORDQTY>");
+                                result.Append("<ORDQTY>" + dtResult.Rows[j]["QUANTITY"].ToString().Trim().Split('.')[0] + "</ORDQTY>");
                                 //result.AppendLine();
                             }
 
@@ -721,10 +721,47 @@ namespace DCH_CONVERT_DATA
                             result.Append("<SALES_ORDLIN>0.000</SALES_ORDLIN>");
                             //result.AppendLine();
 
-                            result.Append("<RSVQTY>" + dtResult.Rows[j]["QUANTITY"].ToString() + "</RSVQTY>");
+                            //result.Append("<RSVQTY>" + dtResult.Rows[j]["QUANTITY"].ToString() + "</RSVQTY>");
+                            if (dtResult.Rows[j]["QUANTITY"].ToString().Trim() == string.Empty)
+                            {
+                                result.Append("<RSVQTY/>");
+                                Count_error = true;
+                                //result_error.AppendLine("SALES_ORDER_NO :" + " " + searchstring + " LINE No." + " " + nCount_line + " Schema ORDER_LINE_SEG-ORDQTY is Blank, ");
+
+                                dr = ds_result.Tables["ERR"].NewRow();
+                                dr["LINE_NO"] = nCount_line;
+                                dr["SALES_ORDER_NO"] = searchstring;
+                                dr["TAG_NAME"] = "ORDER_LINE_SEG-RSVQTY";
+                                dr["VALUES"] = "Blank";
+                                ds_result.Tables["ERR"].Rows.Add(dr);
+                            }
+                            else
+                            {
+                                result.Append("<RSVQTY>" + dtResult.Rows[j]["QUANTITY"].ToString().Split('.')[0] + "</RSVQTY>");
+                                //result.AppendLine();
+                            }
+
                             //result.AppendLine();
 
-                            result.Append("<HOST_ORDQTY>" + dtResult.Rows[j]["QUANTITY"].ToString() + "</HOST_ORDQTY>");
+                            //result.Append("<HOST_ORDQTY>" + dtResult.Rows[j]["QUANTITY"].ToString() + "</HOST_ORDQTY>");
+                            if (dtResult.Rows[j]["QUANTITY"].ToString().Trim() == string.Empty)
+                            {
+                                result.Append("<HOST_ORDQTY/>");
+                                Count_error = true;
+                                //result_error.AppendLine("SALES_ORDER_NO :" + " " + searchstring + " LINE No." + " " + nCount_line + " Schema ORDER_LINE_SEG-ORDQTY is Blank, ");
+
+                                dr = ds_result.Tables["ERR"].NewRow();
+                                dr["LINE_NO"] = nCount_line;
+                                dr["SALES_ORDER_NO"] = searchstring;
+                                dr["TAG_NAME"] = "ORDER_LINE_SEG-HOST_ORDQTY";
+                                dr["VALUES"] = "Blank";
+                                ds_result.Tables["ERR"].Rows.Add(dr);
+                            }
+                            else
+                            {
+                                result.Append("<HOST_ORDQTY>" + dtResult.Rows[j]["QUANTITY"].ToString().Split('.')[0] + "</HOST_ORDQTY>");
+                                //result.AppendLine();
+                            }
                             //result.AppendLine();
 
                             result.Append("<HSTSTS>1</HSTSTS>");

@@ -542,24 +542,25 @@ namespace DCH_CONVERT_DATA
 
                         string DELIVERY_INSTRUCTIONS_LINE = string.Empty;
                         DELIVERY_INSTRUCTIONS_LINE = dtResult.Rows[0]["DELIVERY_INSTRUCTIONS_LINE1"].ToString() + dtResult.Rows[0]["DELIVERY_INSTRUCTIONS_LINE2"].ToString();
-                        if (DELIVERY_INSTRUCTIONS_LINE.Trim() == string.Empty)
-                        {
-                            result.Append("<NOTTXT/>");
+                        //if (DELIVERY_INSTRUCTIONS_LINE.Trim() == string.Empty)
+                        //{
+                        //    result.Append("<NOTTXT/>");
 
-                            Count_error = true;
-                            //result_error.AppendLine("SALES_ORDER_NO :" + " " + searchstring + " " + " Schema ORDER_NOTE_SEG-NOTTXT is Blank, ");
+                        //    Count_error = true;
+                        //    //result_error.AppendLine("SALES_ORDER_NO :" + " " + searchstring + " " + " Schema ORDER_NOTE_SEG-NOTTXT is Blank, ");
 
-                            dr = ds_result.Tables["ERR"].NewRow();
-                            dr["LINE_NO"] = nCount;
-                            dr["SALES_ORDER_NO"] = searchstring;
-                            dr["TAG_NAME"] = "ORDER_NOTE_SEG-NOTTXT";
-                            dr["VALUES"] = "Blank";
-                            ds_result.Tables["ERR"].Rows.Add(dr);
-                        }
-                        else
-                        {
-                            result.Append("<NOTTXT>" + DELIVERY_INSTRUCTIONS_LINE + "</NOTTXT>");
-                        }
+                        //    dr = ds_result.Tables["ERR"].NewRow();
+                        //    dr["LINE_NO"] = nCount;
+                        //    dr["SALES_ORDER_NO"] = searchstring;
+                        //    dr["TAG_NAME"] = "ORDER_NOTE_SEG-NOTTXT";
+                        //    dr["VALUES"] = "Blank";
+                        //    ds_result.Tables["ERR"].Rows.Add(dr);
+                        //}
+                        //else
+                        //{
+                        //    result.Append("<NOTTXT>" + DELIVERY_INSTRUCTIONS_LINE + "</NOTTXT>");
+                        //}
+                        result.Append("<NOTTXT>" + DELIVERY_INSTRUCTIONS_LINE + "</NOTTXT>");
                         //result.AppendLine();
 
                         result.Append("<NOTTYP>GENERIC</NOTTYP>");

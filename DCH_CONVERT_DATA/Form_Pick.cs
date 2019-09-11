@@ -762,7 +762,7 @@ namespace DCH_CONVERT_DATA
                         {
                             #region Create File
                             string SHIP_TO_X = SHIP_TO_JDE_ADDRESS.PadLeft(8, '0');
-                            string FileName = PRE_Naming + "_" + searchstring.PadLeft(8, '0') + "_" + DateTime.Now.ToString("yyMMddhhmmss", (new System.Globalization.CultureInfo("en-US"))) + "00001";
+                            string FileName = PRE_Naming + "_" + searchstring.PadLeft(8, '0') + "_" + DateTime.Now.ToString("yyMMddhhmmss", (new System.Globalization.CultureInfo("en-US"))) + "001";
 
                             StreamWriter objWriter = new StreamWriter(GetPATHXML + "\\" + FileName + ".xml", false);
                             objWriter.Write(result.ToString());

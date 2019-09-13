@@ -173,7 +173,7 @@ namespace DCH_CONVERT_DATA_SHIPCONFIRM
 
                     #region Create P_601_E2A_INV .XML 
                     string CLIENT_ID_ORDER_NO = string.Empty;
-                    CLIENT_ID_ORDER_NO = CLIENT_ID + sOrder_No;
+                    CLIENT_ID_ORDER_NO = System.Configuration.ConfigurationSettings.AppSettings["TAG_ORDER_NO"].ToString() + sOrder_No;
                     result_xml = new StringBuilder();
                     result_xml.Append(@"<?xml version='1.0' encoding= 'UTF-8'?>");
                     #region UC_INVOICE_INB_IFD                       
@@ -191,6 +191,7 @@ namespace DCH_CONVERT_DATA_SHIPCONFIRM
                     result_xml.Append("<CLIENT_ID>" + CLIENT_ID.Trim() + "</CLIENT_ID>");
                     result_xml.Append("<ORDER_NO>" + CLIENT_ID_ORDER_NO.Trim() + "</ORDER_NO>");
                     result_xml.Append("<INVOICE_NO>" + CLIENT_ID_ORDER_NO.Trim() + "</INVOICE_NO>");
+                    result_xml.Append(@"<ALLOW_CANCEL_FLG/>");
                     result_xml.Append(@"</INVOICE_INB_SEG>");
                     #endregion
 
@@ -198,9 +199,9 @@ namespace DCH_CONVERT_DATA_SHIPCONFIRM
                     result_xml.Append("</UC_INVOICE_INB_IFD>");
                     #endregion UC_INVOICE_INB_IFD
 
-                    FileName = PRE_Naming_XML + "_" + sOrder_No + "_" + DateTime.Now.ToString("yyMMddhhmmss", (new System.Globalization.CultureInfo("en-US")));
+                    FileName = PRE_Naming_XML + "_" + sOrder_No + "_" + DateTime.Now.ToString("yyMMddhhmmss", (new System.Globalization.CultureInfo("en-US"))) + "001";
 
-                    objWriter = new StreamWriter(PATH_Target + "\\" + FileName + ".xml", false);
+                    objWriter = new StreamWriter(System.Configuration.ConfigurationSettings.AppSettings["PATH_TARGET_To_Inbound"].ToString() + "\\" + FileName + ".xml", false);
                     objWriter.Write(result_xml.ToString());
                     objWriter.Close();
 
@@ -252,6 +253,14 @@ namespace DCH_CONVERT_DATA_SHIPCONFIRM
                 pProcess_out.StartInfo.CreateNoWindow = true; //not diplay a windows
                 pProcess_out.Start();
                 pProcess_out.WaitForExit();
+
+                string FtpSync_Outbound_in = System.Configuration.ConfigurationSettings.AppSettings["FtpSync_Outbound_In"].ToString();
+                System.Diagnostics.Process pProcess_In = new System.Diagnostics.Process();
+                pProcess_In.StartInfo.WorkingDirectory = WorkingDirectory;
+                pProcess_In.StartInfo.FileName = FtpSync_Outbound_in;
+                pProcess_In.StartInfo.CreateNoWindow = true; //not diplay a windows
+                pProcess_In.Start();
+                pProcess_In.WaitForExit();
             }
             catch (Exception ex)
             {

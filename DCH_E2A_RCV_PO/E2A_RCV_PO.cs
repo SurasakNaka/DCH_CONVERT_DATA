@@ -215,7 +215,7 @@ namespace DCH_E2A_RCV_PO
 
                     ds_mail = new DataSet();
                     ds_mail = AddCoulumn_reusultMail();
-
+                    result = new StringBuilder();
                     for (int i = 0; i < dt_no.Rows.Count; i++) // Loop PO
                     {
                         nCount = nCount + 1;

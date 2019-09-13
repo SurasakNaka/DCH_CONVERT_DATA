@@ -60,11 +60,13 @@ namespace DCH_Delivery_Confirm
                 {
                     DataSet ds = new DataSet();
                     ds.ReadXml(filepath);
-
+                    result = new StringBuilder();
+                    Order_No = string.Empty;
+                    sOrder_No = string.Empty;
                     for (int i = 0; i < ds.Tables["SHIPMENT_LINE_SEG"].Rows.Count; i++)
                     {
                         string sTxt = string.Empty;
-                        string sCompany = "00125";
+                        string sCompany = System.Configuration.ConfigurationSettings.AppSettings["sCompany"].ToString();
                         if (ds.Tables["SHIPMENT_LINE_SEG"].Rows[i]["ORDNUM"].ToString() != string.Empty)
                         {
                             Order_No = ds.Tables["SHIPMENT_LINE_SEG"].Rows[i]["ORDNUM"].ToString().Substring(7);// PAHC-SO150789-01 --> 150789-01

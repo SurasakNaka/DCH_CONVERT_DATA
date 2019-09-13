@@ -86,13 +86,19 @@ namespace DCH_CONVERT_DATA_SHIPCONFIRM
                     ds_mail = new DataSet();
                     ds_mail = AddCoulumn_reusultMail();
                     nCount = nCount + 1;
+                    result = new StringBuilder();
+                    Order_No = string.Empty;
+                    sOrder_No = string.Empty;
+                    string ORDERNO = string.Empty;
                     for (int i = 0; i < ds.Tables["SHIPMENT_LINE_SEG"].Rows.Count; i++)
                     {
                         string sTxt = string.Empty;
-                        string sCompany = "00125";
+                        string sCompany = System.Configuration.ConfigurationSettings.AppSettings["sCompany"].ToString();
                         if (ds.Tables["SHIPMENT_LINE_SEG"].Rows[i]["ORDNUM"].ToString() != string.Empty)
                         {
-                            Order_No = ds.Tables["SHIPMENT_LINE_SEG"].Rows[i]["ORDNUM"].ToString().Substring(7);// PAHC-SO150789-01 --> 150789-01
+                            //Order_No = ds.Tables["SHIPMENT_LINE_SEG"].Rows[i]["ORDNUM"].ToString().Substring(7);// PAHC-SO150789-01 --> 150789-01
+                            ORDERNO = ds.Tables["SHIPMENT_LINE_SEG"].Rows[i]["ORDNUM"].ToString().Substring(7);
+                            Order_No = ds.Tables["SHIPMENT_LINE_SEG"].Rows[i]["ORDNUM"].ToString();
                             if (Order_No != string.Empty)
                             {
                                 if (sOrder_No == string.Empty)
@@ -144,7 +150,7 @@ namespace DCH_CONVERT_DATA_SHIPCONFIRM
                        
                         Carrie_Number2 = ""; // DCHShipConfirm.txt
 
-                        sTxt = sCompany.Trim() + "~" + Order_No.Trim() + "~" + Order_Type.Trim() + "~" + Line_Number.Trim() + "~" + PRTNUM.Trim();
+                        sTxt = sCompany.Trim() + "~" + ORDERNO.Trim() + "~" + Order_Type.Trim() + "~" + Line_Number.Trim() + "~" + PRTNUM.Trim();
                         sTxt += "~" + sLocation.Trim() + "~" + LOTNUM.Trim() + "~" + COMQTY.Trim() + "~" + STKUOM.Trim() + "~" + Carrie_Number.Trim();
                         sTxt += "~" + Value_ignored.Trim() + "~" + TRNDTE.Trim() + "~" + Carrie_Number2.Trim();
                         result.Append(sTxt);
@@ -153,7 +159,7 @@ namespace DCH_CONVERT_DATA_SHIPCONFIRM
 
                     #region Create Text file
                     string PRE_Naming = System.Configuration.ConfigurationSettings.AppSettings["PRE_Naming"].ToString();
-                    string FileName = PRE_Naming + "_" + sOrder_No + "_" + DateTime.Now.ToString("yyyyMMddhhmmss", (new System.Globalization.CultureInfo("en-US")));
+                    string FileName = PRE_Naming + "_" + ORDERNO + "_" + DateTime.Now.ToString("yyyyMMddhhmmss", (new System.Globalization.CultureInfo("en-US")));
                     StreamWriter objWriter = new StreamWriter(PATH_Target + @"\\" + FileName + ".txt", false);
                     objWriter.Write(result.ToString());
                     objWriter.Close();

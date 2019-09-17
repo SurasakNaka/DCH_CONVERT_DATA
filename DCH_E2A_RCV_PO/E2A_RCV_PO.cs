@@ -322,7 +322,7 @@ namespace DCH_E2A_RCV_PO
                             }
                             else
                             {
-                                result.Append("<EXPQTY>" + dtResult.Rows[j]["Qty"].ToString().Trim() + "</EXPQTY>");
+                                result.Append("<EXPQTY>" + dtResult.Rows[j]["Qty"].ToString().Trim().Split('.')[0] + "</EXPQTY>");
                             }
 
                             if (dtResult.Rows[j]["itemNumber"].ToString().Trim() == string.Empty)

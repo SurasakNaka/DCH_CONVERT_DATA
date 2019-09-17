@@ -275,7 +275,7 @@ namespace DCH_E2A_RCV_PO
 
                         result.Append("<RIMSTS>OPEN</RIMSTS>");
                         result.Append("<INVTYP>P</INVTYP>");
-                        result.Append("<INVDTE>" + DateTime.Now.ToString("yyyy-MM-dd Thh:mm:ss") + "</INVDTE>");
+                        result.Append("<INVDTE>" + DateTime.Now.ToString("yyyy-MM-ddThh:mm:ss") + "</INVDTE>");
                         result.Append("<ORGREF/>");
                         result.Append("<SADNUM/>");
                         result.Append("<TPL_SHIPTONO/>");

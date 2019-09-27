@@ -441,7 +441,7 @@ namespace DCH_E2A_RCV_PO
             }
             catch (Exception ex)
             {
-                classmail.Sendmail(MailTo, smtp, "Error SO :" + ex.Message.ToString(), MailFrom, strSubject);
+                classmail.Sendmail(MailTo, smtp, "Error PO :" + ex.Message.ToString(), MailFrom, strSubject);
                 return;
             }
             finally

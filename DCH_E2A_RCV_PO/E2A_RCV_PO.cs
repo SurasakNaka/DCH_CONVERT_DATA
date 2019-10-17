@@ -251,8 +251,8 @@ namespace DCH_E2A_RCV_PO
 
                         result.Append("<SEGNAM>HEADER_SEG</SEGNAM>");
                         result.Append("<TRNTYP>A</TRNTYP>");
-
-                        string INVNUM = CLIENT_ID.Substring(0,5) + "PAHC-" + "PO" + dtResult.Rows[0]["PO_NO"].ToString().Trim();
+                        // PO_TYPE
+                        string INVNUM = CLIENT_ID.Substring(0,5) + "PAHC-" + dtResult.Rows[0]["PO_TYPE"].ToString().Trim() + dtResult.Rows[0]["PO_NO"].ToString().Trim();
                         if (dtResult.Rows[0]["PO_NO"].ToString().Trim() == string.Empty)
                         {
                             Count_error = true;

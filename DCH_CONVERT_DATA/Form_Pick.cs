@@ -455,7 +455,7 @@ namespace DCH_CONVERT_DATA
                         }
                         else
                         {
-                            result.Append("<ENTDTE>" + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(4, 4) + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(2, 2) + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(0, 2) + "</ENTDTE>");
+                            result.Append("<ENTDTE>" + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(4, 4)+ dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(0, 2) + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(2, 2) +"</ENTDTE>");
 
                         }
                         //result.AppendLine();
@@ -492,7 +492,7 @@ namespace DCH_CONVERT_DATA
                         }
                         else
                         {
-                            result.Append("<CPODTE>" + dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(4,4)+dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(2,2)+dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(0,2) + "</CPODTE>");
+                            result.Append("<CPODTE>" + dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(4,4)+dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(0,2)+dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(2,2) + "</CPODTE>");
 
                         }
                         //result.AppendLine();

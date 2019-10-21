@@ -448,14 +448,14 @@ namespace DCH_CONVERT_DATA
 
                         result.Append("<ORDTYP>C</ORDTYP>");
                         //result.AppendLine();
-
+                        string sTime = "T" + DateTime.Now.ToString("hh:mm:ss");
                         if (dtResult.Rows[0]["REQUESTED_DATE"].ToString() == string.Empty)
                         {
                             result.Append("<ENTDTE/>");
                         }
                         else
                         {
-                            result.Append("<ENTDTE>" + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(4, 4)+ dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(0, 2) + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(2, 2) +"</ENTDTE>");
+                            result.Append("<ENTDTE>" + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(4, 4) + "-" + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(0, 2) + "-" + dtResult.Rows[0]["REQUESTED_DATE"].ToString().Substring(2, 2) + sTime + "</ENTDTE>");
 
                         }
                         //result.AppendLine();
@@ -492,7 +492,7 @@ namespace DCH_CONVERT_DATA
                         }
                         else
                         {
-                            result.Append("<CPODTE>" + dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(4,4)+dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(0,2)+dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(2,2) + "</CPODTE>");
+                            result.Append("<CPODTE>" + dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(4, 4) + "-" + dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(0, 2) + "-" + dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(2, 2) + sTime + "</CPODTE>");
 
                         }
                         //result.AppendLine();
@@ -533,7 +533,7 @@ namespace DCH_CONVERT_DATA
                         result.Append("<SEGNAM>ORDER_NOTE</SEGNAM>");
                         //result.AppendLine();
 
-                        string ORDNUM1 = "PAHC-" + dtResult.Rows[0]["SALES_ORDER_NO"].ToString();
+                        string ORDNUM1 = "PAHC-" + dtResult.Rows[0]["SALES_ORDER_TYPE"].ToString() + dtResult.Rows[0]["SALES_ORDER_NO"].ToString();//"PAHC-" + dtResult.Rows[0]["SALES_ORDER_NO"].ToString();
                         result.Append("<ORDNUM>" + ORDNUM1 + "</ORDNUM>");
                         //result.AppendLine();
 
@@ -582,7 +582,7 @@ namespace DCH_CONVERT_DATA
                             //result.AppendLine();
 
                             string ORDNUM_LINE_SEG = string.Empty;
-                            ORDNUM_LINE_SEG = dtResult.Rows[j]["SALES_ORDER_TYPE"].ToString() + dtResult.Rows[j]["SALES_ORDER_NO"].ToString();
+                            ORDNUM_LINE_SEG = "PAHC-" + dtResult.Rows[j]["SALES_ORDER_TYPE"].ToString() + dtResult.Rows[j]["SALES_ORDER_NO"].ToString();
                             if (ORDNUM_LINE_SEG.Trim() == string.Empty)
                             {
 

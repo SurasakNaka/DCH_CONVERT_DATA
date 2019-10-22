@@ -493,6 +493,7 @@ namespace DCH_CONVERT_DATA
                         else
                         {
                             result.Append("<CPODTE>" + dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(4, 4) + "-" + dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(0, 2) + "-" + dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(2, 2) + sTime + "</CPODTE>");
+                            //result.Append("<CPODTE>" + dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(4, 4) +  dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(0, 2) + dtResult.Rows[0]["ORDER_DATE"].ToString().Substring(2, 2) +  "</CPODTE>");
 
                         }
                         //result.AppendLine();

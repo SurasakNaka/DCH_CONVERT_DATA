@@ -151,6 +151,93 @@ Public Class ClassLibrarySendMail
         End Try
 
     End Function
+
+    Public Function Sendmail(MailTo As String, smtp As String, sDetail As String, MailFrom As String, sSubjectmail As String, bAttachmentFile As Boolean, DirectoryToZip As String, ZipToCreate As String, ByVal ds_detail As DataSet) As Boolean
+
+        'Dim strSubject As String = My.Settings.MailSubject
+        Dim strBody As String
+        Dim strSendTo As String = Trim(MailTo)
+        Dim smtpClient As New SmtpClient(Trim(smtp))
+        Dim attachment As System.Net.Mail.Attachment
+        'SaleDate
+
+        Try
+            strBody = sDetail
+            Dim mailMsg As New System.Net.Mail.MailMessage '(Trim(sendfrom), Trim(strSendTo)) 
+            Dim Mailfroms As MailAddress = New MailAddress(Trim(MailFrom))
+
+
+            Dim EmailTo As String = ""
+            Dim pos As Integer = InStr(Trim(strSendTo), ";")
+            Dim ToMailAddress As System.Net.Mail.MailAddress
+            If pos <> 0 Then
+                Do Until pos = 0
+                    EmailTo = cmd.Left(Trim(strSendTo), pos - 1)
+                    ToMailAddress = New System.Net.Mail.MailAddress(Trim(EmailTo), "")
+                    mailMsg.To.Add(ToMailAddress)
+                    strSendTo = cmd.Right(Trim(strSendTo), Len(Trim(strSendTo)) - pos)
+                    pos = InStr(Trim(strSendTo), ";")
+                Loop
+                ToMailAddress = New System.Net.Mail.MailAddress(Trim(strSendTo), "")
+                mailMsg.To.Add(ToMailAddress)
+            Else
+                mailMsg = New System.Net.Mail.MailMessage(Trim(MailFrom), Trim(strSendTo))
+            End If
+            '---------------
+
+            Try
+                If ds_detail.Tables.Count <> 0 Then
+                    strBody = RenderDataTableToHtml(ds_detail)
+                End If
+                With mailMsg
+                    .Subject = Trim(sSubjectmail)
+                    .From = Mailfroms
+                    .IsBodyHtml = True
+                    .Body = strBody
+                    'If strFile <> "" Then
+                    '    Dim AttachFile As New Attachment(Trim(strFile))
+                    '    .Attachments.Add(AttachFile)
+                    'End If
+                    .Priority = Net.Mail.MailPriority.Normal
+
+                    If bAttachmentFile Then
+                        ZipToCreate = DirectoryToZip & "\" & ZipToCreate
+                        Using zip As ZipFile = New ZipFile
+                            zip.AddDirectory(DirectoryToZip)
+                            zip.Save(ZipToCreate)
+                        End Using
+
+                        If File.Exists(ZipToCreate) Then
+                            '.Attachments.Add(sAttachmentFile)
+                            attachment = New System.Net.Mail.Attachment(ZipToCreate, "application/zip")
+
+                            .Attachments.Add(attachment) 'attachment
+                        End If
+
+                    End If
+
+                End With
+                smtpClient.Send(mailMsg)  'send mail
+
+                Return True
+            Catch ex As Exception
+                'MessageBox.Show("mail error" & ex.ToString)
+                Return False
+            Finally
+
+                mailMsg.Dispose()
+                'DeleteDirectory(DirectoryToZip, True)
+                File.Delete(ZipToCreate)
+            End Try
+        Catch ex As Exception
+            'MessageBox.Show(ex.ToString)
+            Return False
+        Finally
+
+        End Try
+
+    End Function
+
     Public Function Sendmail(MailTo As String, smtp As String, sDetail As String, MailFrom As String, sSubjectmail As String, bAttachmentFile As Boolean, DirectoryToZip As String, ZipToCreate As String, bDeleteFile As Boolean, ByVal sPath_BAK As String, ByVal ds_detail As DataSet) As Boolean
 
         'Dim strSubject As String = My.Settings.MailSubject
